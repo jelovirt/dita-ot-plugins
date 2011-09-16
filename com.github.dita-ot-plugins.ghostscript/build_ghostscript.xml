@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.github.dita-ot-plugins.ghostscript">
+
+  <target name="com.github.dita-ot-plugins.ghostscript.test-use">
+    <condition property="use.ghostscript">
+      <equals arg1="${pdf.generator}" arg2="ghostscript"/>
+    </condition>
+  </target>
+
+  <target name="com.github.dita-ot-plugins.ghostscript.init"
+          if="use.ghostscript">
+    <pathconvert property="ghostscript.command" setonempty="false">
+      <first>
+        <union>
+          <fileset dir="/opt/local/bin" includes="ps2pdf" erroronmissingdir="false"/>
+          <fileset dir="C:/Program Files/gs" includes="gs*/lib/ps2pdf.bat" erroronmissingdir="false"/>
+          <fileset dir="C:/Program Files (x86)/gs" includes="gs*/lib/ps2pdf.bat" erroronmissingdir="false"/>
+        </union>
+      </first>
+    </pathconvert>
+    <fail message="Unable to locate GhostScript, set property ghostscript.command manually">
+      <condition>
+        <not><isset property="ghostscript.command"/></not>
+      </condition>
+    </fail>
+  </target>    
+
+  <target name="com.github.dita-ot-plugins.ghostscript"
+          depends="com.github.dita-ot-plugins.ghostscript.test-use,
+                   com.github.dita-ot-plugins.ghostscript.init"
+	        if="use.ghostscript">
+    <echo level="info" taskname="ghostscript">Converting ${outputFile} to ${dita.map.output.dir}/${outputFile.base}.pdf</echo>
+    <exec executable="${ghostscript.command}" logerror="true" failifexecutionfails="true" taskname="ghostscript">
+      <arg value="${outputFile}"/>
+      <arg value="${dita.map.output.dir}/${outputFile.base}.pdf"/>
+    </exec>
+    <delete file="${outputFile}"/>
+  </target>
+
+</project>

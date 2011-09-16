@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="reference_yym_2ft_qd">
+  <title>GhostScript distiller plug-in developer reference</title>
+  <shortdesc>The GhostScript distiller plug-in for DITA-OT is a PDF post-processor that allows
+    converting PS to PDF.</shortdesc>
+  <refbody>
+    <section>
+      <p>The GhostScript distiller plug-in supports the following properties:</p>
+      <dl>
+        <dlentry>
+          <dt><codeph>pdf.generator</codeph></dt>
+          <dd>Name of the PDF generator to use. The only supported value is
+              <codeph>ghostscript</codeph>, which enables the plug-in; all other values will result in
+            the plug-in being disabled.</dd>
+        </dlentry>
+      </dl>
+    </section>
+    <example>
+      <p>To format DITA to PDF via PS using AH XSL Formatter, use the following Ant properties:</p>
+      <simpletable>
+        <sthead>
+          <stentry>Property</stentry>
+          <stentry>Value</stentry>
+        </sthead>
+        <strow>
+          <stentry><codeph>pdf.formatter</codeph></stentry>
+          <stentry><codeph>ah</codeph></stentry>
+        </strow>
+        <strow>
+          <stentry><codeph>axf.formatter.output-format</codeph></stentry>
+          <stentry><codeph>@PS</codeph></stentry>
+        </strow>
+        <strow>
+          <stentry><codeph>pdf.generator</codeph></stentry>
+          <stentry><codeph>ghostscript</codeph></stentry>
+        </strow>
+      </simpletable>
+    </example>
+  </refbody>
+</reference>

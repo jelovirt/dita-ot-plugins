@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="com.github.dita-ot-plugins.ghostscript">
+  <feature extension="package.version" value="1.0.0"/>
+  <!-- extensions -->
+  <feature extension="depend.org.dita.pdf2.format.post" value="com.github.dita-ot-plugins.ghostscript"/>
+  <feature extension="dita.conductor.target.relative" file="build_ghostscript.xml"/>
+</plugin>
