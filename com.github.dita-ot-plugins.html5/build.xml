@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+  <target name="com.github.dita-ot-plugins.html5.init">
+    <property name="args.xsl" location="${dita.plugin.com.github.dita-ot-plugins.html5.dir}/xslt/dita2html5.xsl"/>
+    <property name="args.css.file" value="base.css"/>
+    <property name="args.csspath" value="css"/>
+  </target>
+  
+  <target name="dita2html5" depends="com.github.dita-ot-plugins.html5.init, dita2xhtml"/>
+    
+</project>
