@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.github.dita-ot-plugins.plaintext">
+
+  <target name="dita2plaintext.init">
+    <property name="out.ext" value=".txt"/>
+    <property name="troff.outformat" value="plaintext"/>
+  </target>
+  
+  <target name="dita2plaintext"
+          depends="dita2plaintext.init,
+                   build-init,
+                   preprocess,
+                   dita.topic.troff, dita.inner.topic.troff, dita.outer.topic.troff"/>
+  
+</project>
