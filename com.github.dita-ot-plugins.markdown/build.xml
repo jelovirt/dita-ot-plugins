@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com.github.dita-ot-plugins.markdown">
+
+  <target name="dita2markdown.init">
+    <property name="out.ext" value=".md"/>
+    <property name="troff.outformat" value="markdown"/>
+    <property name="troff.step1.xsl" location="${dita.plugin.com.github.dita-ot-plugins.markdown.dir}/xslt/step1.xsl"/>
+    <property name="troff.step2.xsl" location="${dita.plugin.com.github.dita-ot-plugins.markdown.dir}/xslt/step2.xsl"/>
+  </target>
+  
+  <target name="dita2markdown"
+          depends="dita2markdown.init,
+                   dita2troff.init,
+                   build-init,
+                   preprocess,
+                   dita.topic.troff, dita.inner.topic.troff, dita.outer.topic.troff"/>
+  
+</project>
