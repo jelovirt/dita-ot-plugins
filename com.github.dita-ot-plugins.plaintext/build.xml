@@ -4,10 +4,12 @@
   <target name="dita2plaintext.init">
     <property name="out.ext" value=".txt"/>
     <property name="troff.outformat" value="plaintext"/>
+    <property name="troff.step2.xsl" location="${dita.plugin.org.dita.troff.dir}/xsl/troff/step2-base.xsl"/>
   </target>
   
   <target name="dita2plaintext"
           depends="dita2plaintext.init,
+                   dita2troff.init,
                    build-init,
                    preprocess,
                    dita.topic.troff, dita.inner.topic.troff, dita.outer.topic.troff"/>
