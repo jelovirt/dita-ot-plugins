@@ -4,6 +4,45 @@
 
   <!--xsl:variable name="newline"/-->
 
+  <xsl:template name="commonattributes">
+    <xsl:param name="default-output-class"/>
+    <xsl:apply-templates select="@xml:lang"/>
+    <xsl:apply-templates select="@dir"/>
+    <xsl:apply-templates select="@*" mode="data-attributes"/>
+    <xsl:apply-templates select="*[contains(@class,' ditaot-d/ditaval-startprop ')]/@outputclass" mode="add-ditaval-style"/>
+    <xsl:apply-templates select="." mode="set-output-class">
+      <xsl:with-param name="default" select="$default-output-class"/>
+    </xsl:apply-templates>
+  </xsl:template>
+  
+  <xsl:template match="@*" mode="data-attributes"/>
+  
+  <xsl:template match="@audience |
+                       @platform |
+                       @product |
+                       @otherprops |
+                       @props |
+                       @base |
+                       @rev" mode="data-attributes">
+    <xsl:attribute name="data-{name()}">
+      <xsl:value-of select="."/>
+    </xsl:attribute>
+  </xsl:template>
+  
+  <xsl:template match="@props[contains(., '(')] |
+                       @base[contains(., '(')]"
+                name="data-attributes.props" mode="data-attributes">
+    <xsl:param name="value" select="normalize-space(.)"/>
+    <xsl:attribute name="data-{substring-before($value, '(')}">
+      <xsl:value-of select="substring-before(substring-after($value, '('), ')')"/>
+    </xsl:attribute>
+    <xsl:if test="contains($value, ' ')">
+      <xsl:call-template name="data-attributes.props">
+        <xsl:with-param name="value" select="substring-after($value, ' ')"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
   <!-- Metadata -->
 
   <xsl:template name="generateCharset">
@@ -59,9 +98,6 @@
     <xsl:variable name="shortmeta">
       <xsl:apply-templates select="*|text()" mode="text-only"/>
     </xsl:variable>
-    <!--meta name="abstract">
-      <xsl:attribute name="content"><xsl:value-of select="normalize-space($shortmeta)"/></xsl:attribute>
-    </meta-->
     <meta name="description">
       <xsl:attribute name="content">
         <xsl:value-of select="normalize-space($shortmeta)"/>
